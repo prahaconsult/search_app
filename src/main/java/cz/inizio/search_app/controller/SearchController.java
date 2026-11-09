@@ -43,11 +43,11 @@ public class SearchController {
 
         if ("csv".equalsIgnoreCase(format)) {
             content = convertToCsv(results);
-            filename = "vysledky.csv";
+            filename = "results.csv";
             mediaType = MediaType.TEXT_PLAIN;
         } else {
             content = convertToJson(results);
-            filename = "vysledky.json";
+            filename = "results.json";
             mediaType = MediaType.APPLICATION_JSON;
         }
 
