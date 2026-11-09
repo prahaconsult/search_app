@@ -1,16 +1,15 @@
-FROM ubuntu:latest
-LABEL authors="sam"
-
-ENTRYPOINT ["top", "-b"]
-
-FROM eclipse-temurin:21-jre-alpine
-
+gFROM maven:3.9-eclipse-temurin-21-alpine AS build
 WORKDIR /app
 
-COPY target/*.jar app.jar
+COPY pom.xml .
+COPY src ./src
 
-# 4. Otevřeme port 8080, na kterém naše aplikace běží
+RUN mvn clean package -DskipTests
+
+FROM eclipse-temurin:21-jre-alpine
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar
+
 EXPOSE 8080
-
-# 5. Spustíme aplikaci
 ENTRYPOINT ["java", "-jar", "app.jar"]
