@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Google Search</title>
+    <style>
+        .btn-download {
+            display: inline-block;
+            padding: 10px 20px;
+            margin-right: 10px;
+            background-color: #28a745;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-family: sans-serif;
+            font-size: 14px;
+        }
+
+        .btn-download:hover {
+            background-color: #218838;
+        }
+
+        button[type="submit"] {
+            padding: 5px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <h1>Search</h1>
+    <form action= "/" method= "get">
+        <input type="text" name="q" th:value="${q}" placeholder="What are you looking for?" />
+        <button type="submit">Find</button>
+    </form>
+
+    <div th:if="${results != null}">
+        <hr/>
+        <ul>
+            <li th:each="r : ${results}" style="margin-bottom: 10px;">
+                <a th:href="${r.link}" target="_blank" th:text="${r.title}" style="font-size: 1.1em; text-decoration: none;"></a>
+                <p th:text="${r.snippet}" style="color: #555; margin-top: 2px;"></p>
+            </li>
+        </ul>
+
+        <hr/>
+        <h2>Results for: <span th:text="${q}"></span></h2>
+        <div style="margin-top: 10px;">
+        <a th:href="@{/api/search/export(q=${q}, format='json')}" class="btn-download">Download as a JSON</a>
+        <a th:href="@{/api/search/export(q=${q}, format='csv')}" class="btn-download">Download as a CSV</a>
+        </div>
+        </ul>
+    </div>
+</body>
+</html>
