@@ -21,7 +21,7 @@ class SearchControllerTest {
         SerpApiService fakeService = mock(SerpApiService.class);
 
         when(fakeService.search("test")).thenReturn(List.of(
-                new SearchResult("Muj nadpis", "https://example.com", "Muj popisek")
+                new SearchResult("My title", "https://example.com", "My description")
         ));
 
         SearchController controller = new SearchController(fakeService);
@@ -33,6 +33,6 @@ class SearchControllerTest {
         String contentDisposition = response.getHeaders().getFirst(HttpHeaders.CONTENT_DISPOSITION);
         assertTrue(contentDisposition != null && contentDisposition.contains("attachment"));
 
-        assertTrue(response.getBody().contains("Muj nadpis"));
+        assertTrue(response.getBody().contains("My title"));
     }
 }

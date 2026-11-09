@@ -41,8 +41,8 @@ class SerpApiServiceTest {
         void testEmptyJson() {
             SerpApiService service = new SerpApiService("fake-key", "fake-url", "cz");
 
-        String prazdnyJson = "{}";
-        List<SearchResult> results = service.parseJson(prazdnyJson);
+        String emptyJson = "{}";
+        List<SearchResult> results = service.parseJson(emptyJson);
         assertEquals(0, results.size());
     }
 }
